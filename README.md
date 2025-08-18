@@ -1,4 +1,4 @@
-# 🌍 Hyperspectral Image Classification  
+<img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/f160ae1a-1142-48c1-8dee-261b5719296a" /><img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/ed48883f-195c-41b3-bbcb-b0de0a01b3df" /># 🌍 Hyperspectral Image Classification  
 *Feature Extraction & Classification for Urban Natural Resource Monitoring*  
 
 ---
@@ -114,9 +114,9 @@ where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
 ### 1.2 Geometric Alignment (Band Registration)
 Each spectral band is aligned to a common spatial grid so that the same \((x,y)\) refers to the same ground location:  
 
-\[
+$$
 I_{\text{aligned}}(x,y,\lambda) = T_{\lambda}\big(I(x,y,\lambda)\big)
-\]
+$$
 
 where \(T_{\lambda}\) is the estimated geometric transform for band \(\lambda\).
 
@@ -125,13 +125,13 @@ where \(T_{\lambda}\) is the estimated geometric transform for band \(\lambda\).
 ### 1.3 Dimensionality Reduction (PCA)
 To reduce redundancy, data is projected onto the top \(k\) principal components:  
 
-\[
+$$
 C = \frac{1}{n-1} X^\top X, \quad C v_i = \lambda_i v_i
-\]
+$$
 
-\[
+$$
 Z = X V_k
-\]
+$$
 
 where \(X \in \mathbb{R}^{n \times d}\) is the data matrix, \(V_k = [v_1, v_2, \dots, v_k]\), and \(Z \in \mathbb{R}^{n \times k}\) retains the most informative spectral variation.
 
@@ -151,15 +151,17 @@ Both models were trained using **categorical cross-entropy loss** with the **SGD
 
 For **2D CNN**:
 
-\[
-Y(i,j,k) = \sigma \Bigg( \sum_{m=0}^{M-1}\sum_{n=0}^{N-1}\sum_{c=0}^{C-1} X(i+m, j+n, c) \cdot W(m,n,c,k) + b_k \Bigg)
-\]
+$$
+Y(i,j,k) = \sigma \Bigg( \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} \sum_{c=0}^{C-1} 
+X(i+m, j+n, c) \cdot W(m,n,c,k) + b_k \Bigg)
+$$
 
 For **3D CNN**:
 
-\[
-Y(x,y,z,k) = \sigma \Bigg( \sum_{d=0}^{D-1}\sum_{j=0}^{H-1}\sum_{i=0}^{W-1} X(x+i, y+j, z+l) \cdot W(i,j,l,k) + b_k \Bigg)
-\]
+$$
+Y(x,y,z,k) = \sigma \Bigg( \sum_{d=0}^{D-1} \sum_{j=0}^{H-1} \sum_{i=0}^{W-1} 
+X(x+i, y+j, z+l) \cdot W(i,j,l,k) + b_k \Bigg)
+$$
 
 ---
 
@@ -167,9 +169,9 @@ Y(x,y,z,k) = \sigma \Bigg( \sum_{d=0}^{D-1}\sum_{j=0}^{H-1}\sum_{i=0}^{W-1} X(x+
 
 Reduces spatial size while retaining key features:
 
-\[
+$$
 Y(i,j,k) = \max_{(m,n)\in \Omega} \; X(i+m, j+n, k)
-\]
+$$
 
 ---
 
@@ -177,9 +179,9 @@ Y(i,j,k) = \max_{(m,n)\in \Omega} \; X(i+m, j+n, k)
 
 Flattens features for classification:
 
-\[
+$$
 y = \sigma ( W \cdot x + b )
-\]
+$$
 
 ---
 
@@ -187,9 +189,9 @@ y = \sigma ( W \cdot x + b )
 
 Outputs class probabilities:
 
-\[
+$$
 P(y = k \mid x) = \frac{\exp(z_k)}{\sum_{j=1}^{K} \exp(z_j)}
-\]
+$$
 
 ---
 
@@ -197,9 +199,9 @@ P(y = k \mid x) = \frac{\exp(z_k)}{\sum_{j=1}^{K} \exp(z_j)}
 
 Optimization objective for training:
 
-\[
+$$
 L = - \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i,k} \; \log \hat{y}_{i,k}
-\]
+$$
 
 ---
 
