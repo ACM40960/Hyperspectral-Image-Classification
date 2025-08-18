@@ -1,4 +1,4 @@
-<img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/74d290bf-2e2b-4ac3-8b21-8e14644c6b7a" />## 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
+## 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
 
 ---
 
