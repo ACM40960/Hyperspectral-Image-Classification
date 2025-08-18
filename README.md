@@ -114,7 +114,55 @@ The raw hyperspectral data undergoes three key steps to improve quality and redu
    C = \frac{1}{n-1}X^\top X,\quad C v_i = \lambda_i v_i,\quad
    Z = X V_k
    $$
-   where \(V_k = [v_1,\dots,v_k]\). \(Z \in \mathbb{R}^{n \times k}\) retains the most informative spectral variation.
+   where \(V_k = [v_1,\dots,v_k]\). \(Z \in \mathbb{R}^{n \times k}\) retains the most informative spectral variation.### b. Preprocessing
+
+The raw hyperspectral data undergoes three key steps to improve quality and reduce computational load.
+
+#### 1) Radiometric & Atmospheric Correction
+Convert raw sensor values to surface reflectance to remove sensor and atmospheric effects:
+
+$$
+R(\lambda)
+= \frac{I_{\text{raw}}(\lambda) - I_{\text{dark}}(\lambda)}
+       {I_{\text{white}}(\lambda) - I_{\text{dark}}(\lambda)}
+$$
+
+where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
+
+---
+
+#### 2) Geometric Alignment (Band Registration)
+Align each spectral band to a common spatial grid so the same \((x,y)\) refers to the same ground location:
+
+$$
+I_{\text{aligned}}(x,y,\lambda) \;=\; T_{\lambda}\!\big(I(x,y,\lambda)\big)
+$$
+
+with \(T_{\lambda}\) the estimated geometric transform for band \(\lambda\).
+
+---
+
+#### 3) Dimensionality Reduction (PCA)
+Reduce redundancy across bands by projecting onto the top \(k\) principal components.
+
+Given the mean-centered data matrix \(X \in \mathbb{R}^{n \times d}\):
+
+$$
+C \;=\; \frac{1}{n-1}\, X^{\top} X
+$$
+
+Eigen-decomposition of the covariance:
+
+$$
+C\,v_i \;=\; \lambda_i\, v_i
+$$
+
+Project onto the top-\(k\) eigenvectors \(V_k = [v_1,\dots,v_k]\):
+
+$$
+Z \;=\; X\,V_k
+$$
+
 
 **Images to add:**
 - `images/preprocessing_flow.png` – correction → registration → PCA.
