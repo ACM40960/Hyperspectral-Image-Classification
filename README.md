@@ -259,7 +259,7 @@ To assess performance, multiple metrics were employed:
 
 - **Overall Accuracy (OA):**  
   
-  OA = $$\frac$${\text{Number of correctly classified samples}}{\text{Total number of samples}}
+  OA = $$\frac{\text{Number of correctly classified samples}}{\text{Total number of samples}} $$ 
   
 
 - **Average Accuracy (AA):**  
