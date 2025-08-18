@@ -281,7 +281,7 @@ To assess performance, multiple metrics were employed:
 
 - **F1-Score:**  
   
-  F1 = 2  $$\cdot$$  \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+  F1 = 2  $$\cdot$$  $$\frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$
     
 
 These metrics ensured both **global accuracy** and **class-specific performance** were evaluated, which is crucial in imbalanced hyperspectral datasets.  
