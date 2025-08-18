@@ -313,15 +313,15 @@ Ground truth is available for all datasets, enabling **training, validation, and
 
 ### **1. Accuracy Metrics**  
 - **OA, AA, Kappa** used to validate models.  
-$$
-OA = \frac{\sum_{i=1}^N \mathbf{1}(y_i = \hat{y}_i)}{N}
-$$  
+
+OA = $$\frac{\sum_{i=1}^N \mathbf{1}(y_i = \hat{y}_i)}{N}$$  
+
 
 📌 *Image:* `images/accuracy_comparison.png`  
 
 ### **2. Precision, Recall, F1**  
-$$
-Precision = \frac{TP}{TP+FP}, \quad Recall = \frac{TP}{TP+FN}, \quad F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision+Recall}
+
+Precision = $$\frac{TP}{TP+FP}, \quad Recall = \frac{TP}{TP+FN}$$  , $$\quad$$ F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision+Recall}
 $$  
 
 📌 *Image:* `images/confusion_matrix.png`  
