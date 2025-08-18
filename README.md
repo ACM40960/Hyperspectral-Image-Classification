@@ -1,5 +1,4 @@
-### 🌍 Hyperspectral Image Classification  
-*Feature Extraction & Classification for Urban Natural Resource Monitoring*  
+##### 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
 
 ---
 
