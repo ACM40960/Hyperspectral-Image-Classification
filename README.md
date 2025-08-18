@@ -118,7 +118,7 @@ $$
 I_{\text{aligned}}(x,y,\lambda) = T_{\lambda}\big(I(x,y,\lambda)\big)
 $$
 
-where \(T_{\lambda}\) is the estimated geometric transform for band \(\lambda\).
+where $$\(T_{\lambda}\)$$ is the estimated geometric transform for band \(\lambda\).
 
 ---
 
@@ -133,7 +133,7 @@ $$
 Z = X V_k
 $$
 
-where \(X \in \mathbb{R}^{n \times d}\) is the data matrix, \(V_k = [v_1, v_2, \dots, v_k]\), and \(Z \in \mathbb{R}^{n \times k}\) retains the most informative spectral variation.
+where $$\(X \in \mathbb{R}^{n \times d}\)$$ is the data matrix, $$\(V_k = [v_1, v_2, \dots, v_k]\)$$, and $$\(Z \in \mathbb{R}^{n \times k}\)$$ retains the most informative spectral variation.
 
 ---
 
