@@ -128,7 +128,7 @@ This step ensures that every spectral band is perfectly aligned so that each pix
 
 ---
 
-### 1.3 Dimensionality Reduction (PCA)
+### 2.3 Dimensionality Reduction (PCA)
 
 
 
@@ -148,7 +148,7 @@ Dimensionality reduction with PCA is applied to tackle the “curse of dimension
 
 ---
 
-## **2. CNN Model Architecture**
+## **3. CNN Model Architecture**
 
 In our project, two types of convolutional neural networks (CNNs) were explored to capture the spectral–spatial characteristics of hyperspectral images.  
 
@@ -165,7 +165,7 @@ By training both models under the same framework with categorical cross-entropy 
 
 ---
 
-### Step 2.1: Convolution Layer (Feature Extraction)
+### Step 3.1: Convolution Layer (Feature Extraction)
 
 In our project, the convolution layer acted as the fundamental feature extractor for hyperspectral images. 
 
@@ -189,7 +189,7 @@ the **3D CNN** extended this operation to the spectral dimension, where filters 
 
 ---
 
-### Step 2.2: Pooling Layer (Downsampling)
+### Step 3.2: Pooling Layer (Downsampling)
  In our project, the pooling layer was introduced to progressively reduce the spatial resolution of the feature maps while retaining the most important information. By applying max-pooling, the model preserved the strongest activations that represent dominant spectral–spatial patterns, while discarding redundant or less significant details. This not only reduced computational complexity but also improved robustness to small variations such as noise or slight misalignments in the hyperspectral data. The pooling operation therefore helped our CNN models focus on the most discriminative features required for accurate land-cover classification.
 
 Reduces spatial size while retaining key features:
@@ -200,7 +200,7 @@ $$
 
 ---
 
-### Step 2.3: Fully Connected Layer
+### Step 3.3: Fully Connected Layer
 
 Flattens features for classification:
 
@@ -212,7 +212,7 @@ In our project, the fully connected layer acted as the final decision-making sta
 
 ---
 
-### Step 2.4: Softmax Classifier
+### Step 3.4: Softmax Classifier
 
 Outputs class probabilities:
 
@@ -225,7 +225,7 @@ In our project, the softmax layer was used as the final classification stage. It
 
 ---
 
-### Step 2.5: Cross-Entropy Loss
+### Step 3.5: Cross-Entropy Loss
 
 Optimization objective for training:
 
@@ -237,14 +237,14 @@ For training our CNN models, we employed the cross-entropy loss as the optimizat
 
 ---
 
-## **3. Training & Evaluation**
+## **4. Training & Evaluation**
 
 The training process was carefully designed to improve the generalization capability of our CNN models while handling the challenges of hyperspectral data, such as high dimensionality and severe class imbalance.
 
-### 3.1 Data Augmentation  
+### 4.1 Data Augmentation  
 Hyperspectral datasets like **Indian Pines** often suffer from limited labeled samples per class. To mitigate this, we applied **data augmentation** techniques such as random flips, rotations, and oversampling of minority classes. This not only balanced the dataset but also improved the robustness of the model against variations in spatial orientation and local distortions.
 
-### 3.2 Optimizer – Stochastic Gradient Descent (SGD)  
+### 4.2 Optimizer – Stochastic Gradient Descent (SGD)  
 The model parameters were optimized using **Stochastic Gradient Descent (SGD)**. At each iteration, the weights were updated as:  
 
 $$
@@ -254,7 +254,7 @@ $$
 where $$\(w_t\)$$ represents the weight vector at iteration $$\(t\)$$, $$\(\eta\)$$ is the learning rate, and $$\(\nabla L(w_t)\)$$ is the gradient of the cross-entropy loss with respect to the weights.  
 We also experimented with **learning rate scheduling** to ensure faster convergence in the early stages of training and stability during later iterations.
 
-### 3.3 Evaluation Metrics  
+### 4.3 Evaluation Metrics  
 To assess performance, multiple metrics were employed:  
 
 - **Overall Accuracy (OA):**  
@@ -286,7 +286,7 @@ To assess performance, multiple metrics were employed:
 
 These metrics ensured both **global accuracy** and **class-specific performance** were evaluated, which is crucial in imbalanced hyperspectral datasets.  
 
-### 3.4 Validation  
+### 4.4 Validation  
 To validate the model, we generated:  
 1. **Confusion Matrix** – displaying per-class accuracies and misclassifications.  
 2. **Classified Maps** – comparing predicted labels with ground truth maps for visual interpretation.  
@@ -297,16 +297,6 @@ This multi-faceted evaluation enabled us to confirm not only the numerical perfo
 
 ✅ This methodology ensures that preprocessing improves data quality, CNNs capture both spectral and spatial dependencies, and robust evaluation metrics validate classification performance.
 
-
-## 📂 Datasets Used  
-
-- **Indian Pines** – 224 bands, 16 classes.  
-- **Salinas Scene** – 224 bands, high-res, 16 classes.  
-- **AVIRIS Urban Scenes** – Urban cubes with mixed features.  
-
-Ground truth is available for all datasets, enabling **training, validation, and testing**.  
-
----
 
 ## 📊 Results & Evaluation  
 
