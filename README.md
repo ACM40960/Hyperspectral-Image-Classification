@@ -102,7 +102,7 @@ R(\lambda)
        {I_{\text{white}}(\lambda) - I_{\text{dark}}(\lambda)}
 $$
 
-where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
+where $$ \(I_{\text{white}}\) and \(I_{\text{dark}}\) $$ are calibration references.
 
 ---
 
