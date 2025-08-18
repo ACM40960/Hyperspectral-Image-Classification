@@ -89,90 +89,135 @@ We use well-established benchmark hyperspectral datasets:
 
 ## Methodology
 
-### b. Preprocessing  
+### b. Preprocessing
 
-The raw hyperspectral data undergoes several key preprocessing steps:
+The raw hyperspectral data undergoes three key steps to improve quality and reduce computational load:
 
-- **Radiometric & Atmospheric Correction**  
-  Eliminates distortions caused by sensor noise and atmospheric effects.  
+1. **Radiometric & Atmospheric Correction**  
+   Convert raw sensor values to surface reflectance to remove sensor and atmospheric effects:
+   $$
+   R(\lambda) = \frac{I_{\text{raw}}(\lambda) - I_{\text{dark}}(\lambda)}{I_{\text{white}}(\lambda) - I_{\text{dark}}(\lambda)}
+   $$
+   where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
 
-- **Geometric Alignment**  
-  Ensures that spectral bands are spatially consistent across the image.  
+2. **Geometric Alignment (Band Registration)**  
+   Align each spectral band to a common spatial grid so the same \((x,y)\) refers to the same ground location:
+   $$
+   I_{\text{aligned}}(x,y,\lambda) = T_\lambda\!\big(I(x,y,\lambda)\big)
+   $$
+   with \(T_\lambda\) the estimated geometric transform for band \(\lambda\).
 
-- **Dimensionality Reduction (PCA)**  
-  Principal Component Analysis is applied to extract the most informative features while reducing redundancy.  
+3. **Dimensionality Reduction (PCA)**  
+   Reduce redundancy across bands by projecting onto the top \(k\) principal components.  
+   Given centered data matrix \(X \in \mathbb{R}^{n \times d}\):
+   $$
+   C = \frac{1}{n-1}X^\top X,\quad C v_i = \lambda_i v_i,\quad
+   Z = X V_k
+   $$
+   where \(V_k = [v_1,\dots,v_k]\). \(Z \in \mathbb{R}^{n \times k}\) retains the most informative spectral variation.
 
-<!-- LaTeX reference
-$$ Z = XW, \quad W = \arg\max_W \; \det(W^T \Sigma W) $$
--->
-
-![PCA Equation](images/pca_equation.png)
-
-*Images to Add:*  
-- `images/preprocessing_flow.png` (overall preprocessing flow).  
-- `images/pca_visual.png` (PCA variance captured vs components).  
-
----
-
-### c. Feature Extraction  
-
-We apply **convolutional layers** to capture both spectral and spatial context.  
-
-<!-- LaTeX reference
-$$ y_{i,j}^k = f \left( \sum_m \sum_{u,v} x_{i+u,j+v}^m \cdot w_{u,v}^{m,k} + b^k \right) $$
--->
-
-![Convolution Equation](images/conv_equation.png)
-
-*Images to Add:*  
-- `images/cnn_block.png` (CNN block diagram).  
-- `images/feature_extraction.png` (spectral vs spatial features).  
+**Images to add:**
+- `images/preprocessing_flow.png` – correction → registration → PCA.
+- `images/pca_variance.png` – scree plot (explained variance vs. component).
+- `images/pca_rgb.png` – pseudo-RGB from first 3 PCs.
 
 ---
 
-### d. Classification  
+### c. Feature Extraction
 
-1. **Softmax Layer**  
-   Converts the extracted features into probability distributions over classes.  
+We learn spectral–spatial features using convolutional neural networks:
 
-<!-- LaTeX reference
-$$ P(y = k \mid x) = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}} $$
--->
+- **2D CNN (spatial-only kernels per band/stack):**
+  $$
+  y_{i,j}^{(k)} = f\!\left(\sum_{m}\sum_{u,v} x_{i+u,\,j+v}^{(m)}\, w_{u,v}^{(m,k)} + b^{(k)}\right)
+  $$
+  captures local spatial patterns.
 
-![Softmax Equation](images/softmax.png)
+- **3D CNN (joint spectral–spatial kernels):**
+  $$
+  y_{x,y,z}^{(k)} = f\!\left(\sum_{i=0}^{D-1}\sum_{j=0}^{H-1}\sum_{\ell=0}^{W-1}
+  x_{x+i,\,y+j,\,z+\ell}\, w_{i,j,\ell}^{(k)} + b^{(k)}\right)
+  $$
+  captures correlations across height–width–bands simultaneously.
+
+Typical block: **Conv → ReLU → (BatchNorm) → Pool** on PCA patches; optional **attention** weights re-scale channels/regions to emphasize informative spectra or neighborhoods.
+
+**Images to add:**
+- `images/cnn_block.png` – 2D vs 3D conv blocks.
+- `images/patch_extraction.png` – PCA patch extraction from Indian Pines/Salinas.
+- `images/attention_sketch.png` – simple channel/spatial attention sketch (optional).
 
 ---
 
-2. **Loss Function (Cross-Entropy)**  
-   Optimizes the network by minimizing the error between predicted and true labels.  
+### d. Classification
 
-<!-- LaTeX reference
-$$ L = - \sum_{i=1}^N \sum_{k=1}^K y_{i,k} \log \hat{y}_{i,k} $$
--->
+Convolutional features are mapped to land-cover classes:
 
-![Cross-Entropy Equation](images/cross_entropy.png)
+1. **Pooling** (e.g., max pooling) reduces spatial size while retaining saliency:
+   $$
+   y_{i,j}^{(k)}=\max_{(u,v)\in\Omega} x_{i+u,\,j+v}^{(k)}
+   $$
 
-*Images to Add:*  
-- `images/classification_pipeline.png` (end-to-end classification process).  
+2. **Fully Connected layer** on flattened features:
+   $$
+   h = \sigma(Wx + b)
+   $$
+
+3. **Softmax** outputs class probabilities over \(K\) classes:
+   $$
+   P(y=k\mid x)=\frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}}
+   $$
+
+4. **Training objective (categorical cross-entropy)**:
+   $$
+   \mathcal{L} = -\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k}\,\log\big(\hat y_{i,k}\big)
+   $$
+
+**Images to add:**
+- `images/classification_pipeline.png` – features → FC → softmax.
+- `images/sample_classification_map.png` – predicted map example.
 
 ---
 
-### e. Post-Processing & Evaluation  
+### e. Post-Processing & Evaluation
 
-- **Smoothing Filters** are applied to reduce noise in the classified map.  
-- **Evaluation Metrics** include accuracy, precision, recall, and Kappa coefficient.  
+**Post-processing.**  
+Apply morphological filtering or majority voting to remove isolated misclassifications and enforce spatial coherence.
 
-<!-- LaTeX reference
-Accuracy: $$ Acc = \frac{TP + TN}{TP + TN + FP + FN} $$
-Kappa: $$ \kappa = \frac{p_o - p_e}{1 - p_e} $$
--->
+**Metrics.**  
+We report pixel-level and class-wise performance:
 
-![Accuracy Equation](images/accuracy_equation.png)  
-![Kappa Equation](images/kappa_equation.png)
+- **Overall Accuracy (OA):**
+  $$
+  \text{OA}=\frac{\sum_{i=1}^{N}\mathbf{1}\{y_i=\hat y_i\}}{N}
+  $$
 
-*Images to Add:*  
-- `images/classified_map.png` (sample classified land-cover map).  
-- `images/confusion_matrix.png` (evaluation matrix).  
+- **Average Accuracy (AA):**
+  $$
+  \text{AA}=\frac{1}{K}\sum_{k=1}^{K}\frac{TP_k}{TP_k+FN_k}
+  $$
+
+- **Precision / Recall / F1 (per class):**
+  $$
+  \text{Precision}=\frac{TP}{TP+FP},\qquad
+  \text{Recall}=\frac{TP}{TP+FN},\qquad
+  F1=2\cdot\frac{\text{Prec}\cdot\text{Rec}}{\text{Prec}+\text{Rec}}
+  $$
+
+- **Cohen’s Kappa (\(\kappa\))** adjusts for chance agreement:
+  $$
+  \kappa = \frac{p_o - p_e}{1 - p_e}
+  $$
+  where \(p_o\) is observed accuracy and \(p_e\) is expected accuracy by chance.
+
+- **Sensitivity analysis:** vary #PCs, CNN depth/filter sizes, and training sample size to test robustness.
+
+**Images to add:**
+- `images/confusion_matrix.png` – confusion matrix heatmap.
+- `images/oa_aa_kappa.png` – bar chart of OA/AA/κ.
+- `images/groundtruth_vs_pred.png` – ground truth vs predicted maps.
+- `images/sensitivity_plots.png` – OA vs #PCs / depth curves.
+ 
 
 ## 📂 Datasets Used  
 
