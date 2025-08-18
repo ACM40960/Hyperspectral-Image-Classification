@@ -1,4 +1,4 @@
-## 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
+<img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/74d290bf-2e2b-4ac3-8b21-8e14644c6b7a" />## 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
 
 ---
 
@@ -259,9 +259,10 @@ w_{t+1} = w_t - \eta \cdot \nabla L(w_t)
 $$  
 
 where:  
-- \(w_t\) → weight vector at iteration \(t\)  
-- \(\eta\) → learning rate  
-- \(\nabla L(w_t)\) → gradient of the cross-entropy loss  
+
+- $$\(w_t\)$$ → weight vector at iteration $$\(t\)$$  
+- $$\(\eta\)$$ → learning rate  
+- $$\(\nabla L(w_t)\)$$ → gradient of the cross-entropy loss  
 
 A **learning rate scheduler** was applied for fast early convergence and stability at later stages.  
 
@@ -270,32 +271,31 @@ A **learning rate scheduler** was applied for fast early convergence and stabili
 ### 4.3 📊 Evaluation Metrics  
 We used multiple performance metrics:  
 
-- **Overall Accuracy (OA):**  
-$$
-OA = \frac{\text{Correct Predictions}}{\text{Total Samples}}
-$$  
+- **Overall Accuracy (OA):**
+  
+OA = $$\frac{\text{Correct Predictions}}{\text{Total Samples}}$$  
 
-- **Average Accuracy (AA):**  
-$$
-AA = \frac{1}{K} \sum_{k=1}^K \frac{TP_k}{N_k}
-$$  
-where \(TP_k\) = correctly classified samples of class \(k\), \(N_k\) = total samples in class \(k\).  
+- **Average Accuracy (AA):**
+  
+AA = $$\frac{1}{K} \sum_{k=1}^K \frac{TP_k}{N_k}$$
+  
+where $$\(TP_k\)$$ = correctly classified samples of class $$\(k\)$$, $$\(N_k\)$$ = total samples in class $$\(k\)$$.  
 
 - **Kappa Coefficient (\(\kappa\)):**  
-$$
-\kappa = \frac{p_o - p_e}{1 - p_e}
-$$  
-where \(p_o\) = observed agreement (OA), \(p_e\) = chance agreement.  
 
-- **Precision & Recall:**  
-$$
-Precision = \frac{TP}{TP + FP}, \quad Recall = \frac{TP}{TP + FN}
-$$  
+$$\kappa$$ = $$\frac{p_o - p_e}{1 - p_e}$$  
 
-- **F1 Score:**  
-$$
-F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}
-$$  
+where $$\(p_o\)$$ = observed agreement (OA), $$\(p_e\)$$ = chance agreement.  
+
+- **Precision & Recall:**
+  
+Precision = $$\frac{TP}{TP + FP}, \quad Recall = \frac{TP}{TP + FN}$$
+  
+
+- **F1 Score:**
+  
+F1 = 2 $$\cdot$$ $$\frac{Precision \cdot Recall}{Precision + Recall}$$
+  
 
 These ensured **both global accuracy and class-specific performance** were measured.  
 
