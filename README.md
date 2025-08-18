@@ -1,4 +1,4 @@
-<img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/f160ae1a-1142-48c1-8dee-261b5719296a" /><img width="3840" height="1080" alt="image" src="https://github.com/user-attachments/assets/ed48883f-195c-41b3-bbcb-b0de0a01b3df" /># 🌍 Hyperspectral Image Classification  
+🌍 Hyperspectral Image Classification  
 *Feature Extraction & Classification for Urban Natural Resource Monitoring*  
 
 ---
