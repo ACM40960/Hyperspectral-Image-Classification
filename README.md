@@ -28,7 +28,6 @@ By reducing noise and extracting the most informative features, similar pixels c
 
 ## 🎯 Objectives  
 
-In this project, we set out to:  
 1. Study and compare different ways to pick out useful features from hyperspectral images.  
 2. Try methods to reduce the huge amount of data into a smaller, meaningful set without losing key information.  
 3. Look at different algorithms that can classify land-cover types and check which ones work best.  
@@ -42,7 +41,14 @@ In this project, we set out to:
 
 ## ⚙️ Methodology  
 
+## Methodology  
+
 Our methodology follows a structured pipeline, starting from raw hyperspectral data acquisition to generating accurate land-cover classification maps. The process involves **preprocessing, feature extraction, classification, and post-processing with evaluation metrics**.  
+
+This study implements a deep learning–based pipeline for hyperspectral image (HSI) classification using the **Indian Pines dataset** (145 × 145 pixels, 200 spectral bands). The methodology is divided into **two major stages**:  
+
+1. **Preprocessing** – to improve data quality and reduce redundancy.  
+2. **CNN Model Training & Classification** – to learn spectral–spatial representations and classify pixels.  
 
 ---
 
@@ -51,13 +57,15 @@ Our methodology follows a structured pipeline, starting from raw hyperspectral d
 Hyperspectral images capture hundreds of spectral bands per pixel. While this richness enables precise identification of materials, it also introduces the challenge of managing **high-dimensional, redundant, and noisy data**.  
 
 To address this, our approach combines:  
+
 - **Principal Component Analysis (PCA)** → reduces dimensionality efficiently while preserving critical spectral information.  
 - **Convolutional Neural Networks (CNNs)** with **spatial attention mechanisms** → learn robust spectral-spatial features.  
 - **Post-processing techniques** → smoothing filters to refine classification maps.  
 
 This fusion of spectral reduction and spatial learning ensures the system is both **computationally efficient** and **accurate**.  
 
-📌 *Image to Add:* `images/overview_pipeline.png` (Workflow diagram: Input Hyperspectral Cube → PCA → CNN + Attention → Classification → Post-processing → Final Map).  
+📌 *Image to Add:*  
+`images/overview_pipeline.png` (Workflow diagram: Input Hyperspectral Cube → PCA → CNN + Attention → Classification → Post-processing → Final Map).  
 
 ---
 
@@ -86,12 +94,8 @@ We use well-established benchmark hyperspectral datasets:
 
 ---
 
-# Methodology
 
-This study implements a deep learning–based pipeline for hyperspectral image (HSI) classification using the **Indian Pines dataset** (145 × 145 pixels, 200 spectral bands). The methodology is divided into **two major stages**:  
-
-1. **Preprocessing** – to improve data quality and reduce redundancy.  
-2. **CNN Model Training & Classification** – to learn spectral–spatial representations and classify pixels.  
+ 
 
 ---
 
