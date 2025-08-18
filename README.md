@@ -276,8 +276,8 @@ To assess performance, multiple metrics were employed:
 
 - **Precision & Recall:**  
   
-  \text{Precision} =  $$\frac{TP}{TP + FP}$$ ,  $$\quad$$  
-  \text{Recall} =  $$\frac{TP}{TP + FN}$$  
+  $$\text{Precision} =  $$\frac{TP}{TP + FP}$$ ,  $$\quad$$  
+  $$\text{Recall} =  $$\frac{TP}{TP + FN}$$  
 
 - **F1-Score:**  
   
