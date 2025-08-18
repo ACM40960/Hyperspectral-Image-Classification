@@ -281,7 +281,7 @@ AA = $$\frac{1}{K} \sum_{k=1}^K \frac{TP_k}{N_k}$$
   
 where $$\(TP_k\)$$ = correctly classified samples of class $$\(k\)$$, $$\(N_k\)$$ = total samples in class $$\(k\)$$.  
 
-- **Kappa Coefficient $$\kappa\$$:**  
+- **Kappa Coefficient kappa:**  
 
 $$\kappa$$ = $$\frac{p_o - p_e}{1 - p_e}$$  
 
