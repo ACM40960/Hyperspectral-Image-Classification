@@ -283,7 +283,7 @@ where $$\(TP_k\)$$ = correctly classified samples of class $$\(k\)$$, $$\(N_k\)$
 
 - **Kappa Coefficient:**  
 
-$$\kappa\$$ = $$\frac{p_o - p_e}{1 - p_e}$$  
+$$\kappa\ = \frac{p_o - p_e}{1 - p_e}$$  
 
 where $$\(p_o\)$$ = observed agreement (OA), $$\(p_e\)$$ = chance agreement.  
 
