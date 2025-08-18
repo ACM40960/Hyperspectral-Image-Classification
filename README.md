@@ -1,4 +1,4 @@
-##### 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
+## 🌍 Hyperspectral Image Classification using 2D and 3D CNNs
 
 ---
 
