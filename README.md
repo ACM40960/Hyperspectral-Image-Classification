@@ -95,10 +95,7 @@ The raw hyperspectral data undergoes three key steps to improve quality and redu
 
 1. **Radiometric & Atmospheric Correction**  
    Convert raw sensor values to surface reflectance to remove sensor and atmospheric effects:
-   $$
-   R(\lambda) = \frac{I_{\text{raw}}(\lambda) - I_{\text{dark}}(\lambda)}{I_{\text{white}}(\lambda) - I_{\text{dark}}(\lambda)}
-   $$
-   where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
+   $$ R(\lambda) = \frac{I_{\text{raw}}(\lambda) - I_{\text{dark}}(\lambda)}{I_{\text{white}}(\lambda) - I_{\text{dark}}(\lambda)}$$ where \(I_{\text{white}}\) and \(I_{\text{dark}}\) are calibration references.
 
 2. **Geometric Alignment (Band Registration)**  
    Align each spectral band to a common spatial grid so the same \((x,y)\) refers to the same ground location:
