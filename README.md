@@ -263,27 +263,26 @@ To assess performance, multiple metrics were employed:
   
 
 - **Average Accuracy (AA):**  
-  $$
-  AA = \frac{1}{K} \sum_{k=1}^{K} \frac{TP_k}{N_k}
-  $$  
-  where \(TP_k\) is the number of correctly classified samples in class \(k\), and \(N_k\) is the total number of samples in that class.  
+  
+  AA = $$\frac{1}{K} \sum_{k=1}^{K} \frac{TP_k}{N_k} $$
+   
+  where  $$\(TP_k\)$$ is the number of correctly classified samples in class  $$\(k\)$$, and  $$\(N_k\)$$ is the total number of samples in that class.  
 
 - **Kappa Coefficient (\(\kappa\)):**  
-  $$
-  \kappa = \frac{p_o - p_e}{1 - p_e}
-  $$  
-  where \(p_o\) is the observed agreement (OA) and \(p_e\) is the expected agreement by chance.  
+  
+   $$\kappa $$ =  $$\frac{p_o - p_e}{1 - p_e} $$
+  
+  where  $$\(p_o\)$$ is the observed agreement (OA) and  $$\(p_e\)$$ is the expected agreement by chance.  
 
 - **Precision & Recall:**  
-  $$
-  \text{Precision} = \frac{TP}{TP + FP}, \quad 
-  \text{Recall} = \frac{TP}{TP + FN}
-  $$  
+  
+  \text{Precision} =  $$\frac{TP}{TP + FP} $$,  $$\quad $$ 
+  \text{Recall} =  $$\frac{TP}{TP + FN}$$  
 
 - **F1-Score:**  
-  $$
-  F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-  $$  
+  
+  F1 = 2  $$\cdot$$  \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+    
 
 These metrics ensured both **global accuracy** and **class-specific performance** were evaluated, which is crucial in imbalanced hyperspectral datasets.  
 
