@@ -87,81 +87,92 @@ We use well-established benchmark hyperspectral datasets:
 
 ---
 
-### **b. Preprocessing**  
+## Methodology
 
-1. **Radiometric & Atmospheric Correction**  
-   $$
-   R(\lambda) = \frac{I_{raw}(\lambda) - I_{dark}(\lambda)}{I_{white}(\lambda) - I_{dark}(\lambda)}
-   $$  
+### b. Preprocessing  
 
-2. **Geometric Alignment** – Ensures all bands align spatially.  
+The raw hyperspectral data undergoes several key preprocessing steps:
 
-3. **Dimensionality Reduction (PCA)**  
-   $$
-   Z = XW
-   $$  
+- **Radiometric & Atmospheric Correction**  
+  Eliminates distortions caused by sensor noise and atmospheric effects.  
 
-📌 *Images to Add:*  
-- `images/preprocessing_pipeline.png`  
-- `images/pca_variance.png`  
+- **Geometric Alignment**  
+  Ensures that spectral bands are spatially consistent across the image.  
 
----
+- **Dimensionality Reduction (PCA)**  
+  Principal Component Analysis is applied to extract the most informative features while reducing redundancy.  
 
-### **c. Feature Extraction**  
+<!-- LaTeX reference
+$$ Z = XW, \quad W = \arg\max_W \; \det(W^T \Sigma W) $$
+-->
 
-- **2D CNNs** → process spatial patches.  
-- **3D CNNs** → capture joint spectral-spatial correlations.  
+![PCA Equation](images/pca_equation.png)
 
-Convolutional layer:  
-$$
-y_{i,j}^k = f\Big(\sum_m \sum_{u,v} x_{i+u,j+v}^m \cdot w_{u,v}^{m,k} + b^k \Big)
-$$  
-
-📌 *Images to Add:*  
-- `images/cnn_block.png` (CNN diagram).  
-- `images/feature_extraction.png` (Spectral vs spatial features).  
+*Images to Add:*  
+- `images/preprocessing_flow.png` (overall preprocessing flow).  
+- `images/pca_visual.png` (PCA variance captured vs components).  
 
 ---
 
-### **d. Classification**  
+### c. Feature Extraction  
+
+We apply **convolutional layers** to capture both spectral and spatial context.  
+
+<!-- LaTeX reference
+$$ y_{i,j}^k = f \left( \sum_m \sum_{u,v} x_{i+u,j+v}^m \cdot w_{u,v}^{m,k} + b^k \right) $$
+-->
+
+![Convolution Equation](images/conv_equation.png)
+
+*Images to Add:*  
+- `images/cnn_block.png` (CNN block diagram).  
+- `images/feature_extraction.png` (spectral vs spatial features).  
+
+---
+
+### d. Classification  
 
 1. **Softmax Layer**  
-   $$
-   P(y=k|x) = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}}
-   $$  
+   Converts the extracted features into probability distributions over classes.  
+
+<!-- LaTeX reference
+$$ P(y = k \mid x) = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}} $$
+-->
+
+![Softmax Equation](images/softmax.png)
+
+---
 
 2. **Loss Function (Cross-Entropy)**  
-   $$
-   L = - \sum_{i=1}^N \sum_{k=1}^K y_{i,k} \log \hat{y}_{i,k}
-   $$  
+   Optimizes the network by minimizing the error between predicted and true labels.  
 
-📌 *Images to Add:*  
-- `images/classification_pipeline.png`  
-- `images/sample_classification_map.png`  
+<!-- LaTeX reference
+$$ L = - \sum_{i=1}^N \sum_{k=1}^K y_{i,k} \log \hat{y}_{i,k} $$
+-->
 
----
+![Cross-Entropy Equation](images/cross_entropy.png)
 
-### **e. Post-Processing & Evaluation**  
-
-- **Post-Processing:** morphological filters & majority voting.  
-- **Evaluation Metrics:**  
-
-  - Overall Accuracy (OA):  
-    $$
-    OA = \frac{\text{Correct Predictions}}{\text{Total Samples}}
-    $$  
-
-  - Kappa Coefficient:  
-    $$
-    \kappa = \frac{p_o - p_e}{1 - p_e}
-    $$  
-
-📌 *Images to Add:*  
-- `images/confusion_matrix.png`  
-- `images/oa_kappa_comparison.png`  
-- `images/groundtruth_vs_predicted.png`  
+*Images to Add:*  
+- `images/classification_pipeline.png` (end-to-end classification process).  
 
 ---
+
+### e. Post-Processing & Evaluation  
+
+- **Smoothing Filters** are applied to reduce noise in the classified map.  
+- **Evaluation Metrics** include accuracy, precision, recall, and Kappa coefficient.  
+
+<!-- LaTeX reference
+Accuracy: $$ Acc = \frac{TP + TN}{TP + TN + FP + FN} $$
+Kappa: $$ \kappa = \frac{p_o - p_e}{1 - p_e} $$
+-->
+
+![Accuracy Equation](images/accuracy_equation.png)  
+![Kappa Equation](images/kappa_equation.png)
+
+*Images to Add:*  
+- `images/classified_map.png` (sample classified land-cover map).  
+- `images/confusion_matrix.png` (evaluation matrix).  
 
 ## 📂 Datasets Used  
 
