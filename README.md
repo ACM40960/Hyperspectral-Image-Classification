@@ -41,8 +41,6 @@ By reducing noise and extracting the most informative features, similar pixels c
 
 ## ⚙️ Methodology  
 
-## Methodology  
-
 Our methodology follows a structured pipeline, starting from raw hyperspectral data acquisition to generating accurate land-cover classification maps. The process involves **preprocessing, feature extraction, classification, and post-processing with evaluation metrics**.  
 
 This study implements a deep learning–based pipeline for hyperspectral image (HSI) classification using the **Indian Pines dataset** (145 × 145 pixels, 200 spectral bands). The methodology is divided into **two major stages**:  
@@ -52,7 +50,7 @@ This study implements a deep learning–based pipeline for hyperspectral image (
 
 ---
 
-### **1. Overview of the Approach**  
+### **Overview of the Approach**  
 
 Hyperspectral images capture hundreds of spectral bands per pixel. While this richness enables precise identification of materials, it also introduces the challenge of managing **high-dimensional, redundant, and noisy data**.  
 
@@ -69,7 +67,7 @@ This fusion of spectral reduction and spatial learning ensures the system is bot
 
 ---
 
-### **a. Data Collection**  
+### **1. Data Collection**  
 
 We use well-established benchmark hyperspectral datasets:  
 
@@ -94,16 +92,15 @@ We use well-established benchmark hyperspectral datasets:
 
 ---
 
+## **2. Preprocessing**
 
- 
+Before training the model, the hyperspectral data needed to be cleaned and simplified so that it could be used effectively. Raw hyperspectral images usually contain hundreds of spectral bands, but many of these are either redundant or affected by atmospheric noise and sensor distortions. To tackle this, we first applied radiometric and atmospheric corrections, which convert the raw sensor values into surface reflectance. This ensures that the dataset represents real-world ground conditions rather than being influenced by lighting variations or sensor errors.
 
----
+Once the data was corrected, we focused on reducing its very high dimensionality. Using Principal Component Analysis (PCA), we were able to compress the dataset while still keeping more than 99% of the useful information. This step not only removed unnecessary bands but also made the training process much faster and more efficient. To prepare the data for the CNN models, we extracted fixed-size patches around each pixel and applied data augmentation techniques like rotations and flips. This helped balance the dataset by giving more representation to smaller classes, ensuring that the model could learn fairly across all land-cover types.
 
-## **1. Preprocessing**
 
-The raw hyperspectral data undergoes three key steps to improve quality and reduce computational load:
 
-### 1.1 Radiometric & Atmospheric Correction
+### 2.1 Radiometric & Atmospheric Correction
 Convert raw sensor values to surface reflectance to remove sensor and atmospheric effects:  
 
 $$
@@ -112,9 +109,12 @@ $$
 
 where $$\(I_{\text{white}}\)$$ and $$\(I_{\text{dark}}\)$$ are calibration references.
 
+Radiometric and atmospheric correction is a crucial first step in hyperspectral image preprocessing. Raw hyperspectral data is often influenced by sensor noise, illumination variations, and atmospheric scattering, which can distort the spectral signatures of materials. To ensure that the measured values truly represent ground reflectance, calibration using white and dark reference panels is applied.  
+
+
 ---
 
-### 1.2 Geometric Alignment (Band Registration)
+### 2.2 Geometric Alignment (Band Registration)
 Each spectral band is aligned to a common spatial grid so that the same \((x,y)\) refers to the same ground location:  
 
 $$
@@ -123,9 +123,15 @@ $$
 
 where $$\(T_{\lambda}\)$$ is the estimated geometric transform for band \(\lambda\).
 
+This step ensures that every spectral band is perfectly aligned so that each pixel location $$\((x, y)\)$$ refers to the exact same ground point across all wavelengths. Without alignment, even small distortions between bands could confuse the model and lead to misclassification. By applying geometric transformations, we create a consistent hyperspectral cube where both spectral and spatial information are accurately preserved for further processing.
+
+
 ---
 
 ### 1.3 Dimensionality Reduction (PCA)
+
+
+
 To reduce redundancy, data is projected onto the top \(k\) principal components:  
 
 $$
@@ -137,6 +143,8 @@ Z = X V_k
 $$
 
 where $$\(X \in \mathbb{R}^{n \times d}\)$$ is the data matrix, $$\(V_k = [v_1, v_2, \dots, v_k]\)$$, and $$\(Z \in \mathbb{R}^{n \times k}\)$$ retains the most informative spectral variation.
+
+Dimensionality reduction with PCA is applied to tackle the “curse of dimensionality” in hyperspectral data. Since many adjacent spectral bands carry redundant information, PCA projects the original high-dimensional data onto a smaller set of uncorrelated components that capture the majority of variance. This not only reduces computational complexity but also suppresses noise, making the features more robust for classification. In our project, retaining the top principal components preserves essential spectral-spatial details while significantly improving efficiency for downstream CNN training.
 
 ---
 
