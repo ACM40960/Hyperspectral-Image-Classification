@@ -150,15 +150,24 @@ Dimensionality reduction with PCA is applied to tackle the “curse of dimension
 
 ## **2. CNN Model Architecture**
 
-Two architectures were implemented:  
-- **2D CNN** – extracts spatial features per band independently.  
-- **3D CNN** – captures joint spectral–spatial correlations.  
+In our project, two types of convolutional neural networks (CNNs) were explored to capture the spectral–spatial characteristics of hyperspectral images.  
 
-Both models were trained using **categorical cross-entropy loss** with the **SGD optimizer**.
+ - **2D CNN** – extracts spatial features per band independently.  
+
+The **2D CNN** was applied on spectral bands after dimensionality reduction using PCA. Each input patch was represented as a 2D image with reduced channels, and the convolutional layers learned spatial textures and edge-like patterns within each band. This approach is computationally less intensive and works well when spectral redundancy has already been reduced, making it suitable for large-scale experiments.  
+
+- **3D CNN** – captures joint spectral–spatial correlations.
+  
+The **3D CNN**, in contrast, directly processed the hyperspectral data cube by treating both the spectral and spatial dimensions jointly. Instead of analyzing each band independently, the 3D kernels convolved across neighboring pixels and spectral bands simultaneously, enabling the network to capture subtle correlations between wavelength variations and spatial structures. This made the 3D CNN particularly powerful in learning complex class boundaries where spectral signatures alone were insufficient.  
+
+By training both models under the same framework with categorical cross-entropy loss and an SGD optimizer, we could compare their effectiveness. The 2D CNN achieved faster training and lower computational cost, while the 3D CNN produced richer feature representations and higher classification accuracy, especially in spectrally complex regions.
+
 
 ---
 
 ### Step 2.1: Convolution Layer (Feature Extraction)
+
+In our project, the convolution layer acted as the fundamental feature extractor for hyperspectral images. 
 
 For **2D CNN**:
 
@@ -167,6 +176,8 @@ Y(i,j,k) = \sigma \Bigg( \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} \sum_{c=0}^{C-1}
 X(i+m, j+n, c) \cdot W(m,n,c,k) + b_k \Bigg)
 $$
 
+In our project, the convolution layer acted as the fundamental feature extractor for hyperspectral images. For the **2D CNN**, the convolution was applied on local pixel neighborhoods within each PCA-reduced band. This helped the model learn spatial textures such as edges, shapes, and fine details across the scene, which are important for distinguishing land-cover classes. On the other hand, 
+
 For **3D CNN**:
 
 $$
@@ -174,9 +185,12 @@ Y(x,y,z,k) = \sigma \Bigg( \sum_{d=0}^{D-1} \sum_{j=0}^{H-1} \sum_{i=0}^{W-1}
 X(x+i, y+j, z+l) \cdot W(i,j,l,k) + b_k \Bigg)
 $$
 
+the **3D CNN** extended this operation to the spectral dimension, where filters scanned across both space and wavelength simultaneously. This allowed the network to capture subtle correlations between spectral signatures and spatial patterns, leading to richer feature maps. Together, these convolution operations ensured that the models could automatically learn discriminative features without relying on handcrafted descriptors.
+
 ---
 
 ### Step 2.2: Pooling Layer (Downsampling)
+ In our project, the pooling layer was introduced to progressively reduce the spatial resolution of the feature maps while retaining the most important information. By applying max-pooling, the model preserved the strongest activations that represent dominant spectral–spatial patterns, while discarding redundant or less significant details. This not only reduced computational complexity but also improved robustness to small variations such as noise or slight misalignments in the hyperspectral data. The pooling operation therefore helped our CNN models focus on the most discriminative features required for accurate land-cover classification.
 
 Reduces spatial size while retaining key features:
 
@@ -194,6 +208,8 @@ $$
 y = \sigma ( W \cdot x + b )
 $$
 
+In our project, the fully connected layer acted as the final decision-making stage of the CNN. After convolution and pooling, the extracted spectral–spatial features were flattened into a one-dimensional vector and passed through dense connections. This enabled the network to combine information across all bands and spatial regions, effectively learning high-level class representations. The fully connected layer mapped these features to the output classes (e.g., different land-cover types in the Indian Pines dataset), ensuring that the network could perform accurate pixel-wise classification.
+
 ---
 
 ### Step 2.4: Softmax Classifier
@@ -203,6 +219,9 @@ Outputs class probabilities:
 $$
 P(y = k \mid x) = \frac{\exp(z_k)}{\sum_{j=1}^{K} \exp(z_j)}
 $$
+
+In our project, the softmax layer was used as the final classification stage. It converted the raw output scores (logits) from the fully connected layer into normalized probability distributions across all land-cover classes. This allowed each pixel in the hyperspectral image to be assigned to the most likely class, while still providing probability estimates for all possible categories. By using softmax, the model not only predicted the most probable class but also provided confidence levels, which is crucial for evaluating uncertainty in hyperspectral image classification tasks.
+
 
 ---
 
@@ -214,14 +233,66 @@ $$
 L = - \sum_{i=1}^{N} \sum_{k=1}^{K} y_{i,k} \; \log \hat{y}_{i,k}
 $$
 
+For training our CNN models, we employed the cross-entropy loss as the optimization objective. This loss function compares the predicted probability distribution with the true class labels, penalizing the model more heavily when the predicted probability for the correct class is low. By minimizing cross-entropy loss, the network effectively learns to maximize the likelihood of correctly classifying each pixel. In our project, this was particularly important given the large number of classes in hyperspectral datasets like Indian Pines, ensuring that the classifier became more discriminative and accurate over successive training epochs.
+
 ---
 
 ## **3. Training & Evaluation**
 
-- **Data Augmentation**: Flips, rotations, and oversampling were applied to address class imbalance.  
-- **Optimizer**: Stochastic Gradient Descent (SGD).  
-- **Evaluation Metrics**: Overall Accuracy (OA), Average Accuracy (AA), Kappa Coefficient, Precision, Recall, F1-score.  
-- **Validation**: Confusion matrix and classification maps were generated to compare predictions with ground truth.  
+The training process was carefully designed to improve the generalization capability of our CNN models while handling the challenges of hyperspectral data, such as high dimensionality and severe class imbalance.
+
+### 3.1 Data Augmentation  
+Hyperspectral datasets like **Indian Pines** often suffer from limited labeled samples per class. To mitigate this, we applied **data augmentation** techniques such as random flips, rotations, and oversampling of minority classes. This not only balanced the dataset but also improved the robustness of the model against variations in spatial orientation and local distortions.
+
+### 3.2 Optimizer – Stochastic Gradient Descent (SGD)  
+The model parameters were optimized using **Stochastic Gradient Descent (SGD)**. At each iteration, the weights were updated as:  
+
+$$
+w_{t+1} = w_t - \eta \cdot \nabla L(w_t)
+$$  
+
+where \(w_t\) represents the weight vector at iteration \(t\), \(\eta\) is the learning rate, and \(\nabla L(w_t)\) is the gradient of the cross-entropy loss with respect to the weights.  
+We also experimented with **learning rate scheduling** to ensure faster convergence in the early stages of training and stability during later iterations.
+
+### 3.3 Evaluation Metrics  
+To assess performance, multiple metrics were employed:  
+
+- **Overall Accuracy (OA):**  
+  $$
+  OA = \frac{\text{Number of correctly classified samples}}{\text{Total number of samples}}
+  $$  
+
+- **Average Accuracy (AA):**  
+  $$
+  AA = \frac{1}{K} \sum_{k=1}^{K} \frac{TP_k}{N_k}
+  $$  
+  where \(TP_k\) is the number of correctly classified samples in class \(k\), and \(N_k\) is the total number of samples in that class.  
+
+- **Kappa Coefficient (\(\kappa\)):**  
+  $$
+  \kappa = \frac{p_o - p_e}{1 - p_e}
+  $$  
+  where \(p_o\) is the observed agreement (OA) and \(p_e\) is the expected agreement by chance.  
+
+- **Precision & Recall:**  
+  $$
+  \text{Precision} = \frac{TP}{TP + FP}, \quad 
+  \text{Recall} = \frac{TP}{TP + FN}
+  $$  
+
+- **F1-Score:**  
+  $$
+  F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+  $$  
+
+These metrics ensured both **global accuracy** and **class-specific performance** were evaluated, which is crucial in imbalanced hyperspectral datasets.  
+
+### 3.4 Validation  
+To validate the model, we generated:  
+1. **Confusion Matrix** – displaying per-class accuracies and misclassifications.  
+2. **Classified Maps** – comparing predicted labels with ground truth maps for visual interpretation.  
+
+This multi-faceted evaluation enabled us to confirm not only the numerical performance of the models but also their ability to produce spatially coherent classification maps suitable for real-world land-cover analysis.
 
 ---
 
