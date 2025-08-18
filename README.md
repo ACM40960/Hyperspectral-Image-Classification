@@ -247,7 +247,9 @@ Hyperspectral datasets like **Indian Pines** often suffer from limited labeled s
 ### 3.2 Optimizer – Stochastic Gradient Descent (SGD)  
 The model parameters were optimized using **Stochastic Gradient Descent (SGD)**. At each iteration, the weights were updated as:  
 
-$$w_{t+1} = w_t - \eta \cdot \nabla L(w_t)$$  
+$$
+w_{t+1} = w_t - \eta \cdot \nabla L(w_t)
+$$  
 
 where $$\(w_t\)$$ represents the weight vector at iteration $$\(t\)$$, $$\(\eta\)$$ is the learning rate, and $$\(\nabla L(w_t)\)$$ is the gradient of the cross-entropy loss with respect to the weights.  
 We also experimented with **learning rate scheduling** to ensure faster convergence in the early stages of training and stability during later iterations.
