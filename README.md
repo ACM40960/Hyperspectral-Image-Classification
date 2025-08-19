@@ -325,7 +325,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ### 🔹 5.2 Principal Component Analysis (PCA)  
 **PCA for 2D CNN**  
-![PCA 2D CNN](pca2dcnn.png)  
+![PCA 2D CNN](./pca2dcnn.png)  
 *Interpretation:* PCA reduces dimensionality by extracting the most informative spectral bands. The visualization shows that even after reduction, strong separation between classes is maintained. This validates the effectiveness of PCA in reducing training time and computational cost while preserving essential spectral information for the 2D CNN.  
 
 ---
