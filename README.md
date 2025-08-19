@@ -10,6 +10,8 @@ This project focuses on **feature extraction and classification** of hyperspectr
 
 The system further employs **post-processing filters** to refine predictions and evaluates performance using key metrics such as **overall accuracy, per-class precision, recall, and the Kappa coefficient**. By combining spectral and spatial information, the project demonstrates how advanced machine learning can transform raw hyperspectral data into actionable insights. Beyond strong results on benchmark datasets, this approach highlights the broader potential of hyperspectral imaging for **urban planning, resource management, and environmental monitoring**.  
 
+![Project Abstract Diagram](./images/overview1.png) 
+
 ---
 
 ## 📝 Problem Statement  
@@ -312,27 +314,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ## 📊 5. Results & Evaluation  
 
-### 5.1 Model Architectures  
-
-**2D CNN Architecture**  
-![2D CNN](./images/2dcnn.png)  
-*Interpretation:* The 2D CNN processes spectral information effectively, capturing pixel-wise correlations but sometimes struggles with spectrally similar land-cover classes.  
-
-**3D CNN Architecture**  
-![3D CNN](./images/3dcnn.png)  
-*Interpretation:* The 3D CNN jointly processes spectral and spatial dimensions, enabling richer feature extraction. It is computationally more expensive but yields higher accuracy.  
-
----
-
-### 5.2 PCA Visualization  
-
-**PCA with 2D CNN**  
-![PCA 2D CNN](./images/pca2dcnn.png)  
-*Interpretation:* PCA reduces hyperspectral data into principal components, which makes training faster and highlights the dominant spectral features.  
-
----
-
-### 5.3 Model Outputs  
+### 5.1 Model Outputs  
 
 **2D CNN Output**  
 ![2D CNN Output](./images/2DCNNOP.png)  
@@ -344,7 +326,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ---
 
-### 5.4 Confusion Matrices  
+### 5.2 Confusion Matrices  
 
 **2D CNN Confusion Matrix**  
 ![2D CNN Confusion Matrix](./images/2dconfmatrix.png)  
@@ -356,7 +338,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ---
 
-### 5.5 Classification Reports  
+### 5.3 Classification Reports  
 
 **2D CNN Classification Report**  
 ![2D Classification Report](./images/classificationreport2d.jpeg)  
@@ -368,7 +350,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ---
 
-### 5.6 Loss and Accuracy  
+### 5.4 Loss and Accuracy  
 
 **3D CNN Training Curves**  
 ![3D Loss & Accuracy](./images/accuracycurve.png)  
@@ -377,7 +359,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 --- 
 
 ## 📌 Poster  
-[Click here to view the Poster](images/poster.png)
+[📄 Click here to view the Poster](./poster.pdf)
 
 ## 📌 Authors
 
