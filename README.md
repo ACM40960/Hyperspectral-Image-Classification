@@ -57,6 +57,8 @@ This study implements a deep learning based pipeline for hyperspectral image (HS
 1. **Preprocessing:** To improve data quality and reduce redundancy.  
 2. **CNN Model Training & Classification:** To learn spectral spatial representations and classify pixels.  
 
+![Overall Working of System](./images/overview2.png) 
+
 ---
 
 ## 🔍 Overview of the Approach  
