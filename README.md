@@ -42,9 +42,42 @@ By reducing noise and extracting the most informative features, similar pixels c
  
 ## 📂 Directory Structure
 
+Hyperspectral-Image-Classification/
+│── Data/                  # Folder to store datasets (not pushed to GitHub)
+│── images/                # All figures, plots, and visualizations
+│── 2DD_NEW.ipynb          # Jupyter Notebook for 2D CNN model
+│── 3D_NEW.ipynb           # Jupyter Notebook for 3D CNN model
+│── requirements.txt       # Python dependencies
+│── .gitignore             # Ignored files and folders
+│── README.md              # Project documentation
+
+
 --- 
 
 ## 🛠️ Installation & Setup
+
+**1. Clone the repository**
+```bash
+   git clone https://github.com/ACM40960/Hyperspectral-Image-Classification.git
+   cd Hyperspectral-Image-Classification
+
+**2. (Optional) Create a virtual environment**
+python -m venv env
+source env/bin/activate   # On Linux/Mac
+env\Scripts\activate      # On Windows
+
+**3. Install dependencies**
+pip install -r requirements.txt
+
+**4. Download datasets**
+Place the hyperspectral datasets (e.g., Indian Pines, Salinas) inside the Data/ folder.
+(Datasets are not included in the repo due to size restrictions.)
+
+**5. Run Jupyter Notebooks**
+
+jupyter notebook
+
+Open 2DD_NEW.ipynb or 3D_NEW.ipynb to train and evaluate the models.
 
 ---
 
