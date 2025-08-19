@@ -310,47 +310,64 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 ---
 
-# 📊 5. Results & Evaluation  
+## 📊 5. Results & Evaluation  
 
-### 5.1 Accuracy Metrics  
-We computed OA, AA, and Kappa across models:  
+### 🔹 5.1 Model Architectures  
+**2D CNN Architecture**  
+![2D CNN](2dcnn.png)  
+*Interpretation:* The 2D CNN processes hyperspectral data by treating each spectral band as an individual image channel. While it captures spatial information effectively, its ability to learn spectral correlations across bands is limited. This often results in higher misclassifications for spectrally similar land-cover classes.  
 
-📌 *Image:* `images/accuracy_comparison.png`  
-
----
-
-### 5.2 Precision, Recall, and F1-Score  
-These class-specific metrics provided insight into imbalanced class performance.  
-
-📌 *Image:* `images/confusion_matrix.png`  
+**3D CNN Architecture**  
+![3D CNN](2d3dcnn.png)  
+*Interpretation:* The 3D CNN jointly captures both spatial and spectral features. Each convolution operates across the spectral dimension as well as spatial dimensions, enabling the model to distinguish between classes with subtle spectral differences. This architecture is more computationally expensive but provides superior accuracy and cleaner classification maps.  
 
 ---
 
-### 5.3 Sensitivity Analysis  
-- Varied PCA components, CNN depth, and training sample size.  
-- Results showed **stable performance** under different configurations.  
-
-📌 *Image:* `images/sensitivity_analysis.png`  
-
----
-
-### 5.4 Visual Results  
-
-Figure 7 shows the **Ground Truth map** of the Indian Pines dataset with distinct class boundaries.  
-
-- **Figure 8 (2D CNN Prediction):** Correctly identifies large homogeneous regions but contains scattered noisy misclassifications, particularly along boundaries and spectrally similar areas.  
-- **Figure 9 (3D CNN Prediction):** Produces cleaner maps with smoother boundaries and fewer noisy pixels, demonstrating superior performance by jointly modeling spectral + spatial features.  
-
-👉 **Conclusion:** 3D CNN significantly outperforms 2D CNN, making it more suitable for real-world hyperspectral classification tasks.  
-
-📌 *Image:* `images/visual_results.png`  
+### 🔹 5.2 Principal Component Analysis (PCA)  
+**PCA for 2D CNN**  
+![PCA 2D CNN](pca2dcnn.png)  
+*Interpretation:* PCA reduces dimensionality by extracting the most informative spectral bands. The visualization shows that even after reduction, strong separation between classes is maintained. This validates the effectiveness of PCA in reducing training time and computational cost while preserving essential spectral information for the 2D CNN.  
 
 ---
 
-### **Final Captions for Figures**  
-- *Figure 7 – Ground Truth Image*  
-- *Figure 8 – Predicted 2D CNN Image (noisy boundaries, scattered misclassifications)*  
-- *Figure 9 – Predicted 3D CNN Image (cleaner segmentation, sharper boundaries)*  
+### 🔹 5.3 Output Predictions  
+**2D CNN Output**  
+![2D CNN Output](2DCNNOP.png)  
+*Interpretation:* The 2D CNN output demonstrates reasonable performance, correctly identifying large homogeneous regions. However, the boundaries between similar classes appear blurred, and small, spectrally overlapping areas show scattered misclassifications.  
+
+**3D CNN Output**  
+![3D CNN Output](3DCNNOP.png)  
+*Interpretation:* The 3D CNN prediction map is much cleaner, with sharper boundaries and reduced noise compared to 2D CNN. The joint spatial–spectral learning captures finer details, resulting in classifications that more closely resemble the ground truth distribution.  
+
+---
+
+### 🔹 5.4 Confusion Matrices  
+**2D CNN Confusion Matrix**  
+![2D CNN Confusion Matrix](2dConsuion matrix.png)  
+*Interpretation:* The confusion matrix for 2D CNN shows noticeable misclassifications across spectrally similar classes. Certain vegetation and urban categories are often confused, lowering overall performance.  
+
+**3D CNN Confusion Matrix**  
+![3D CNN Confusion Matrix](3DConsuion matrix.png)  
+*Interpretation:* The 3D CNN confusion matrix highlights a clear reduction in misclassifications compared to 2D CNN. Diagonal dominance is stronger, indicating higher per-class accuracy. This supports the claim that 3D CNN better captures subtle spectral differences.  
+
+---
+
+### 🔹 5.5 Classification Reports  
+**2D CNN Classification Report**  
+![Classification Report 2D](classificationreport2d.jpeg)  
+*Interpretation:* The classification report reveals moderate precision, recall, and F1-scores. Certain classes perform well, but imbalance across categories reduces the model’s robustness.  
+
+**3D CNN Classification Report**  
+![Classification Report 3D](classificationreport3d.jpeg)  
+*Interpretation:* The 3D CNN classification report shows consistently higher values of precision, recall, and F1-score across almost all classes. This confirms that the 3D CNN achieves better generalization and more balanced performance.  
+
+---
+
+### 🔹 5.6 Training Performance  
+**3D CNN Loss & Accuracy Curve**  
+![3D CNN Loss and Accuracy](3Dlossand accuracycurve.png)  
+*Interpretation:* The training curves demonstrate rapid convergence of the 3D CNN. Both training and validation accuracy track closely, with minimal overfitting. The steadily decreasing loss indicates stable learning, while the plateau in accuracy shows that the model has generalized well to unseen data.  
+
 
 
 --- 
