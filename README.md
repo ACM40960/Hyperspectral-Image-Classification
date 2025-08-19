@@ -376,29 +376,6 @@ Both authors contributed equally to data preprocessing, model implementation, ev
 This project was completed through active collaboration between two students. All code, experiments, and documentation were jointly discussed and implemented.
 A GitHub repository has been created to maintain version control, facilitate open collaboration, and share results with the broader research community.
 
-## 📌 Linkedin Profile Links:
-
-[Pushkar](https:/www.linkedin.com/in/pushkartelavane)
-[Isha](https:/www.linkedin.com/in/ishaborgaonkar)
-
-## 📌 GitHub Profile Links:
-
-[Pushkar](https://github.com/Pushkartel)
-[Isha](https://github.com/ishaborgaonkar05))
-
-
-## 🔬 Further Research
-
-While our current study demonstrates the effectiveness of CNNs for hyperspectral image classification, several extensions can be explored:
-
-Implementing transformer-based architectures for improved spectral–spatial modeling.
-
-Integrating semi-supervised and self-supervised learning to address limited labeled data.
-
-Conducting domain adaptation experiments to improve generalization across different sensors and geographical regions.
-
-Exploring real-time processing pipelines for UAV or satellite-based remote sensing.
-
 ## 📜 License
 
 This project is distributed under the MIT License, which permits reuse, modification, and distribution with proper attribution. Please check the LICENSE file in the repository for more details.
