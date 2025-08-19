@@ -371,7 +371,7 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 ### 5.6 Loss and Accuracy  
 
 **3D CNN Training Curves**  
-![3D Loss & Accuracy](./images/3Dlossand%20accuracycurve.png)  
+![3D Loss & Accuracy](./images/3Dlossand accuracycurve.png)  
 *Interpretation:* The 3D CNN converges rapidly, with validation accuracy closely following training accuracy. This indicates minimal overfitting and strong generalization.  
 
 --- 
