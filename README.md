@@ -10,7 +10,7 @@ This project focuses on **feature extraction and classification** of hyperspectr
 
 The system further employs **post-processing filters** to refine predictions and evaluates performance using key metrics such as **overall accuracy, per-class precision, recall, and the Kappa coefficient**. By combining spectral and spatial information, the project demonstrates how advanced machine learning can transform raw hyperspectral data into actionable insights. Beyond strong results on benchmark datasets, this approach highlights the broader potential of hyperspectral imaging for **urban planning, resource management, and environmental monitoring**.  
 
-![Project Abstract Diagram](./images/overview1.png) 
+![Overall Working of System](./images/overview2.png) 
 
 ---
 
@@ -57,8 +57,6 @@ This study implements a deep learning based pipeline for hyperspectral image (HS
 1. **Preprocessing:** To improve data quality and reduce redundancy.  
 2. **CNN Model Training & Classification:** To learn spectral spatial representations and classify pixels.  
 
-![Overall Working of System](./images/overview2.png) 
-
 ---
 
 ## 🔍 Overview of the Approach  
@@ -73,8 +71,7 @@ To address this, our approach combines:
 
 This fusion of **spectral reduction** and **spatial learning** ensures the system is both **computationally efficient** and **accurate**.  
 
-📌 *Image to Add:*  
-`images/overview_pipeline.png` (Workflow diagram: Input Hyperspectral Cube → PCA → CNN + Attention → Classification → Post-processing → Final Map).  
+![Project Abstract Diagram](./images/overview1.png)  
 
 ---
 
@@ -95,11 +92,6 @@ We use well established benchmark hyperspectral datasets:
 - **AVIRIS Urban Scenes**  
   - Urban hyperspectral cubes.  
   - Includes man-made (asphalt, rooftops) and natural features.  
-
-📌 *Images to Add:*  
-- `images/indian_pines_rgb.png` (Indian Pines pseudo-RGB).  
-- `images/salinas_rgb.png` (Salinas pseudo-RGB).  
-- `images/dataset_groundtruth.png` (Ground truth maps).  
 
 ---
 
@@ -167,6 +159,9 @@ The **3D CNN** input directly processed the hyperspectral data cube by treating 
 
 By training both models under the same framework with categorical cross entropy loss and an SGD optimizer, we could compare their effectiveness. The 2D CNN achieved faster training and lower computational cost, while the 3D CNN produced richer feature representations and higher classification accuracy, especially in spectrally complex regions.
 
+![2D 3D CNN](./images/2d3dcnn.png) 
+
+
 ---
 
 ## Step 3.1: Convolution Layer (Feature Extraction)
@@ -192,6 +187,8 @@ $$
 The **3D CNN** extended this operation to the spectral dimension, where filters scanned across both space and wavelength simultaneously. This allowed the network to capture subtle correlations between spectral signatures and spatial patterns, leading to richer feature maps. 
 
 Together, these convolution operations ensured that the models could automatically learn discriminative features without relying on handcrafted descriptors.
+
+![Overall Working of System](./images/convolutionallayesr.png) 
 
 ---
 
@@ -320,11 +317,11 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 **2D CNN Output**  
 ![2D CNN Output](./images/2DCNNOP.png)  
-*Interpretation:* The 2D CNN output map shows that while large homogeneous regions are captured, boundaries appear blurred and there are scattered misclassifications.  
+**Interpretation:** The 2D CNN output map shows that while large homogeneous regions are captured, boundaries appear blurred and there are scattered misclassifications.  
 
 **3D CNN Output**  
 ![3D CNN Output](./images/3DCNNOP.png)  
-*Interpretation:* The 3D CNN output demonstrates sharper class boundaries and fewer scattered misclassifications, indicating better spatial–spectral learning.  
+**Interpretation:** The 3D CNN output demonstrates sharper class boundaries and fewer scattered misclassifications, indicating better spatial–spectral learning.  
 
 ---
 
@@ -332,11 +329,11 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 **2D CNN Confusion Matrix**  
 ![2D CNN Confusion Matrix](./images/2dconfmatrix.png)  
-*Interpretation:* The 2D CNN shows high accuracy in dominant classes but misclassifies minority classes due to limited spectral–spatial context.  
+**Interpretation:** The 2D CNN shows high accuracy in dominant classes but misclassifies minority classes due to limited spectral–spatial context.  
 
 **3D CNN Confusion Matrix**  
 ![3D CNN Confusion Matrix](./images/3dconfmatrix.png)  
-*Interpretation:* The 3D CNN achieves improved class balance, with fewer misclassifications across minority land-cover categories.  
+**Interpretation:** The 3D CNN achieves improved class balance, with fewer misclassifications across minority land-cover categories.  
 
 ---
 
@@ -344,11 +341,11 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 **2D CNN Classification Report**  
 ![2D Classification Report](./images/classificationreport2d.jpeg)  
-*Interpretation:* The precision and recall values reveal that the 2D CNN favors majority classes while underperforming on rare categories.  
+**Interpretation:** The precision and recall values reveal that the 2D CNN favors majority classes while underperforming on rare categories.  
 
 **3D CNN Classification Report**  
 ![3D Classification Report](./images/classificationreport3d.jpeg)  
-*Interpretation:* The 3D CNN achieves consistently higher precision, recall, and F1-scores across all classes, confirming its robustness.  
+**Interpretation:** The 3D CNN achieves consistently higher precision, recall, and F1-scores across all classes, confirming its robustness.  
 
 ---
 
@@ -356,8 +353,9 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 **3D CNN Training Curves**  
 ![3D Loss & Accuracy](./images/accuracycurve.png)  
-*Interpretation:* The 3D CNN converges rapidly, with validation accuracy closely following training accuracy. This indicates minimal overfitting and strong generalization.  
+**Interpretation:** The 3D CNN converges rapidly, with validation accuracy closely following training accuracy. This indicates minimal overfitting and strong generalization.  
 
+## Comparison 
 --- 
 
 ## 📌 Poster  
@@ -367,15 +365,11 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 
 This project was developed as part of the coursework in Hyperspectral Image Classification. The primary contributors are:
 
-Pushkar Telavane (ID: 24223351)
+Pushkar Telavane (ID:24223351 , Email: pushkar.telavane@ucdconnect.ie)
 
-Isha Borgaonkar (ID: 24209758, Email: isha.borgaonkar@ucdconnect.ie)
+Isha Borgaonkar (ID:24209758, Email: isha.borgaonkar@ucdconnect.ie)
 
 Both authors contributed equally to data preprocessing, model implementation, evaluation, and documentation of the project.
-
-## 🙏 Acknowledgement
-
-We would like to thank our module instructors and teaching assistants at University College Dublin for their continuous guidance and support throughout the course. Their lectures, reference materials, and feedback were instrumental in shaping this project. We also acknowledge the availability of benchmark hyperspectral datasets (Indian Pines, Salinas, AVIRIS) and open-source libraries that enabled us to conduct this research.
 
 ## 🤝 Collaboration & Networking
 
@@ -384,13 +378,13 @@ A GitHub repository has been created to maintain version control, facilitate ope
 
 ## 📌 Linkedin Profile Links:
 
-[Pushkar](https://www.linkedin.com/in/your-link-here)
-[Isha](https://www.linkedin.com/in/your-link-here)
+[Pushkar](https:/www.linkedin.com/in/pushkartelavane)
+[Isha](https:/www.linkedin.com/in/ishaborgaonkar)
 
 ## 📌 GitHub Profile Links:
 
-[Pushkar](https://www.linkedin.com/in/your-link-here)
-[Isha](https://www.linkedin.com/in/your-link-here)
+[Pushkar](https://github.com/Pushkartel)
+[Isha](https://github.com/ishaborgaonkar05))
 
 
 ## 🔬 Further Research
@@ -422,13 +416,3 @@ Paoletti, M. E., Haut, J. M., Plaza, J., & Plaza, A. (2019). Deep Learning Class
 Indian Pines dataset – Purdue University Research Repository.
 
 Salinas and AVIRIS datasets – NASA Jet Propulsion Laboratory.
-
-
-✅ This methodology ensures that preprocessing improves data quality, CNNs capture both spectral and spatial dependencies, and robust evaluation metrics validate classification performance.
-
-
-
----
-
-## 📌 Project Structure  
-
