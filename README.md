@@ -42,15 +42,6 @@ By reducing noise and extracting the most informative features, similar pixels c
  
 ## 📂 Directory Structure
 
-Hyperspectral-Image-Classification/
-│── Data/ # Folder to store datasets (not pushed to GitHub)
-│── images/ # All figures, plots, and visualizations
-│── 2DD_NEW.ipynb # Jupyter Notebook for 2D CNN model
-│── 3D_NEW.ipynb # Jupyter Notebook for 3D CNN model
-│── requirements.txt # Python dependencies
-│── .gitignore # Ignored files and folders
-│── README.md # Project documentation
-
 
 --- 
 
