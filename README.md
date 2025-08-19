@@ -56,24 +56,24 @@ Hyperspectral-Image-Classification/
 
 ## 🛠️ Installation & Setup
 
-**1. Clone the repository**
-```bash
+1. Clone the repository
+   bash
    git clone https://github.com/ACM40960/Hyperspectral-Image-Classification.git
    cd Hyperspectral-Image-Classification
 
-**2. (Optional) Create a virtual environment**
+2. (Optional) Create a virtual environment
 python -m venv env
 source env/bin/activate   # On Linux/Mac
 env\Scripts\activate      # On Windows
 
-**3. Install dependencies**
+3. Install dependencies
 pip install -r requirements.txt
 
-**4. Download datasets**
+4. Download datasets
 Place the hyperspectral datasets (e.g., Indian Pines, Salinas) inside the Data/ folder.
 (Datasets are not included in the repo due to size restrictions.)
 
-**5. Run Jupyter Notebooks**
+5. Run Jupyter Notebooks
 
 jupyter notebook
 
