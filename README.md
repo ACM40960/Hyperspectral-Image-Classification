@@ -347,11 +347,11 @@ This confirmed both **numerical performance** and **spatial coherence** in class
 ### 5.4 Confusion Matrices  
 
 **2D CNN Confusion Matrix**  
-![2D CNN Confusion Matrix](./images/2dConsuion%20matrix.png)  
+![2D CNN Confusion Matrix](./images/2dconfmatrix.png)  
 *Interpretation:* The 2D CNN shows high accuracy in dominant classes but misclassifies minority classes due to limited spectral–spatial context.  
 
 **3D CNN Confusion Matrix**  
-![3D CNN Confusion Matrix](./images/3DConsuion%20matrix.png)  
+![3D CNN Confusion Matrix](./images/3dconfmatrix.png)  
 *Interpretation:* The 3D CNN achieves improved class balance, with fewer misclassifications across minority land-cover categories.  
 
 ---
