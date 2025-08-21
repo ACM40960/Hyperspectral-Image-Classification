@@ -1,9 +1,5 @@
 <h1 align="center">🌍 Hyperspectral Image Classification using 2D and 3D CNNs</h1>
 
-<p align="center">
-  <b>A deep learning-based project implementing 2D and 3D CNN models for Hyperspectral Image Classification.</b>
-</p>
-
 ---
 
 ### 🚀 Tech Stack
