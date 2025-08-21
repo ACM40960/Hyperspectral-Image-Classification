@@ -44,7 +44,7 @@ By reducing noise and extracting the most informative features, similar pixels c
 
 Hyperspectral-Image-Classification 
 
-Hyperspectral-Image-Classification/
+Hyperspectral-Image-Classification <br>
 ├── Data/ # Folder to store datasets (not pushed to GitHub) <br>
 ├── images/ # All figures, plots, and visualizations <br>
 ├── 2DD_NEW.ipynb # Jupyter Notebook for 2D CNN model <br>
