@@ -42,6 +42,7 @@ By reducing noise and extracting the most informative features, similar pixels c
  
 ## 📂 Directory Structure
 
+```
 Hyperspectral-Image-Classification 
 
 Hyperspectral-Image-Classification <br>
@@ -53,7 +54,7 @@ Hyperspectral-Image-Classification <br>
 ├── .gitignore # Ignored files and folders <br>
 └── README.md # Project documentation <br>
 
-
+```
 --- 
 
 ## 🛠️ Installation & Setup
